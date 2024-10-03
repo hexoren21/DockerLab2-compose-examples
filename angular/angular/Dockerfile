@@ -4,7 +4,7 @@ RUN mkdir /project
 WORKDIR /project
 
 COPY package.json ./
-RUN npm install --save-dev @angular-devkit/build-angular@^13.3.11
+RUN npm install -g npm@10.8.3
 
 #RUN npm install --save-dev @angular-devkit/build-angular
 
