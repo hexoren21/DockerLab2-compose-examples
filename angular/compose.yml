@@ -4,12 +4,10 @@ services:
     build:
       context: angular
       dockerfile: Dockerfile
-      target: build
+      target: builder
     container_name: angular-app
     ports:
       - "4200:4200"
     volumes:
       - ./angular:/project
       - /project/node_modules
-    environment:
-      - CHOKIDAR_USEPOLLING=true
