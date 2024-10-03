@@ -13,9 +13,12 @@ RUN npm install -g @angular/cli@13.3.11
 COPY . .
 
 RUN npm install
-FROM nginx:alpine
-COPY --from=builder /project/dist/my-welcome-app /usr/share/nginx/html
+CMD ["ng", "serve", "--host", "0.0.0.0"]
 
-EXPOSE 80
 
-CMD ["nginx", "-g", "daemon off;"]
+#FROM nginx:alpine
+#COPY --from=builder /project/dist/my-welcome-app /usr/share/nginx/html
+
+#EXPOSE 80
+
+#CMD ["nginx", "-g", "daemon off;"]
