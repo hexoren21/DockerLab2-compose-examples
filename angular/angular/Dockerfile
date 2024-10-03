@@ -1,4 +1,4 @@
-FROM --platform=$BUILDPLATFORM node:18-slim as build
+FROM --platform=$BUILDPLATFORM node:17.0.1-bullseye-slim as build
 
 RUN mkdir /project
 WORKDIR /project
