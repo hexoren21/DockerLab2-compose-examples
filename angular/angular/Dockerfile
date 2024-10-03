@@ -5,7 +5,7 @@ WORKDIR /project
 
 COPY package.json ./
 
-RUN npm install --only=production
+RUN npm install -g @angular/cli@13.3.11
 
 COPY . .
 
