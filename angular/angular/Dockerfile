@@ -12,7 +12,7 @@ RUN npm install -g @angular/cli@13.3.11
 
 COPY . .
 
-RUN npm run build --prod
+RUN npm ci
 FROM nginx:alpine
 COPY --from=builder /project/dist/my-welcome-app /usr/share/nginx/html
 
