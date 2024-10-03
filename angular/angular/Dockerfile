@@ -1,24 +1,14 @@
-FROM --platform=$BUILDPLATFORM node:17.0.1-bullseye-slim as build
+# syntax=docker/dockerfile:1.4
+
+FROM --platform=$BUILDPLATFORM node:17.0.1-bullseye-slim as builder
 
 RUN mkdir /project
 WORKDIR /project
 
-COPY package.json ./
-RUN npm install -g npm@10.8.3
+RUN npm install -g @angular/cli@13
 
-#RUN npm install --save-dev @angular-devkit/build-angular
-
-RUN npm install -g @angular/cli@13.3.11
+COPY package.json package-lock.json ./
+RUN npm ci
 
 COPY . .
-
-RUN npm install
 CMD ["ng", "serve", "--host", "0.0.0.0"]
-
-
-#FROM nginx:alpine
-#COPY --from=builder /project/dist/my-welcome-app /usr/share/nginx/html
-
-#EXPOSE 80
-
-#CMD ["nginx", "-g", "daemon off;"]
