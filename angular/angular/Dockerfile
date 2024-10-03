@@ -1,4 +1,4 @@
-FROM --platform=$BUILDPLATFORM node:18-slim as builder
+FROM --platform=$BUILDPLATFORM node:18-slim as build
 
 RUN mkdir /project
 WORKDIR /project
@@ -9,7 +9,7 @@ RUN npm install -g @angular/cli@13.3.11
 
 COPY . .
 
-RUN npm run builder --prod
+RUN npm run build --prod
 FROM nginx:alpine
 COPY --from=builder /project/dist/my-welcome-app /usr/share/nginx/html
 

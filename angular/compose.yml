@@ -4,7 +4,7 @@ services:
     build:
       context: angular
       dockerfile: Dockerfile
-      target: builder
+      target: build
     container_name: angular-app
     ports:
       - "4200:4200"
