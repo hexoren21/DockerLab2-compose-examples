@@ -108,9 +108,3 @@ services:
 - **Build configuration**: Builds the image from the `Dockerfile`.
 - **Ports**: Exposes the container's port `4200` to the host machine.
 - **Volumes**: Mounts the project directory and `node_modules` for easy development without rebuilding the image every time you change the source code.
-
----
-
-You can adjust the paths, URLs, and screenshot references to fit your project structure.
-
-Let me know if you'd like any modifications or further assistance!
