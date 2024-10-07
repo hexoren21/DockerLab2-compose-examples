@@ -56,7 +56,7 @@ You should see the following message displayed:
 
 (The page will look like the image below.)
 
-![Application Screenshot](./path-to-image.png)
+![Application Screenshot](./sample.png)
 
 ### Dockerfile Explanation
 
