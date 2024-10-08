@@ -11,5 +11,16 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: "512M"
+    networks:
+      - django_network
+
+networks:
+  django_network:
+    driver: bridge
    # volumes:
     #  - ./app:/var/www/html/
