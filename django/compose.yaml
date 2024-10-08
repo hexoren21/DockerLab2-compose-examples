@@ -20,11 +20,11 @@ services:
       - django_network
     security_opt:
       - no-new-privileges:true
-    read_only: true
-    user: "www-data"
+    #read_only: true
+    #user: "www-data"
+    volumes:
+      - ./logs:/app/logs
 
 networks:
   django_network:
     driver: bridge
-   # volumes:
-    #  - ./app:/var/www/html/
