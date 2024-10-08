@@ -1,7 +1,8 @@
 # syntax=docker/dockerfile:1.4
 
 FROM --platform=$BUILDPLATFORM python:3.7-alpine AS builder
-EXPOSE 8000
+RUN useradd -r -u 1000 -g www-data www-data
+#EXPOSE 8000
 WORKDIR /app 
 COPY requirements.txt /app
 RUN pip3 install -r requirements.txt --no-cache-dir
