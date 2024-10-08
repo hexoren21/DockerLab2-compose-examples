@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.4
 
 FROM --platform=$BUILDPLATFORM python:3.7-alpine AS builder
-RUN useradd -r -u 1000 -g www-data www-data
+RUN apk add --no-cache shadow && useradd -r -u 1000 -g www-data www-data
 #EXPOSE 8000
 WORKDIR /app 
 COPY requirements.txt /app
