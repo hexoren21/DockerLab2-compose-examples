@@ -18,6 +18,10 @@ services:
           memory: "512M"
     networks:
       - django_network
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    user: "www-data"
 
 networks:
   django_network:
