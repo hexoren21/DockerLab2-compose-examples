@@ -1,52 +1,60 @@
-Django Application with Docker Compose
+### Django Application with Docker Compose
+
 This project demonstrates how to set up a Django application using Docker and Docker Compose. The application runs inside a Docker container, simplifying deployment in any environment.
 
-Project Overview
-The application is a Django project that runs within a Docker container, with docker-compose used to define and manage the service. This setup handles the application server and database using Docker, making it portable and easy to replicate across environments.
+## Project Overview
 
-Key Technologies
-Python 3.7 (Alpine): Lightweight Python base image for Django.
-Django: Web framework used in this project.
-Docker: For containerization of the Django application.
-Docker Compose: For service orchestration and defining multi-container applications.
-Prerequisites
+The application is a Django project that runs within a Docker container, with `docker-compose` used to define and manage the service. This setup handles the application server and database using Docker, making it portable and easy to replicate across environments.
+
+### Key Technologies
+- **Python 3.7 (Alpine)**: Lightweight Python base image for Django.
+- **Django**: Web framework used in this project.
+- **Docker**: For containerization of the Django application.
+- **Docker Compose**: For service orchestration and defining multi-container applications.
+
+## Prerequisites
+
 Before running this project, make sure you have the following installed:
 
-Docker
-Docker Compose
-Setup Instructions
-1. Clone the Repository
-bash
-Copy code
+- Docker
+- Docker Compose
+
+## Setup Instructions
+
+### 1. Clone the Repository
+```bash
 git clone <your-repo-url>
 cd <repo-directory>
-2. Build and Run the Application
+```
+
+### 2. Build and Run the Application
 Use Docker Compose to build the Django application and start the container:
-
-bash
-Copy code
+```bash
 docker-compose up --build
-This will:
+```
 
-Build the Docker image based on the Dockerfile.
-Start the Django application and expose it on the configured port.
-3. Access the Application
+This will:
+- Build the Docker image based on the `Dockerfile`.
+- Start the Django application and expose it on the configured port.
+
+### 3. Access the Application
 Once the container is running, open your browser and navigate to:
 
-bash
-Copy code
+```bash
 http://localhost:<configured-port>
-Replace <configured-port> with the value of the environment variable WEB_PORT in your .env file (if applicable) or the default port (8000).
+```
+Replace `<configured-port>` with the value of the environment variable `WEB_PORT` in your `.env` file (if applicable) or the default port (8000).
 
 You should see the Django application homepage.
 ![Application Screenshot](./sample.png)
 
-Dockerfile Explanation
-Base Image
-The base image used in the Dockerfile is python:3.7-alpine for a lightweight and efficient Python environment. The builder stage installs all required dependencies and configures the application.
 
-dockerfile
-Copy code
+## Dockerfile Explanation
+
+### Base Image
+The base image used in the Dockerfile is `python:3.7-alpine` for a lightweight and efficient Python environment. The `builder` stage installs all required dependencies and configures the application.
+
+```dockerfile
 FROM --platform=$BUILDPLATFORM python:3.7-alpine AS builder
 RUN apk add --no-cache shadow
 WORKDIR /app
@@ -57,14 +65,17 @@ COPY . /app
 RUN mkdir -p /app/logs && touch /app/db.sqlite3
 ENTRYPOINT ["python3"]
 CMD ["manage.py", "runserver", "0.0.0.0:8000"]
-Python 3.7 Alpine: Lightweight base image.
-Pip Installation: Installs all Python dependencies from requirements.txt.
-Work Directory: Sets /app as the working directory.
-SQLite: Creates the SQLite database file if it doesn't exist.
-Entrypoint & CMD: Specifies Django's runserver as the default command.
-Docker Compose Configuration
-yaml
-Copy code
+```
+
+- **Python 3.7 Alpine**: Lightweight base image.
+- **Pip Installation**: Installs all Python dependencies from `requirements.txt`.
+- **Work Directory**: Sets `/app` as the working directory.
+- **SQLite**: Creates the SQLite database file if it doesn't exist.
+- **Entrypoint & CMD**: Specifies Django's runserver as the default command.
+
+## Docker Compose Configuration
+
+```yaml
 services:
   web:
     build:
@@ -91,27 +102,40 @@ services:
     volumes:
       - ./logs:/app/logs
       - ./data/db.sqlite3:/app/db.sqlite3
-Service Definition
-web service: Defines the Django web application.
-Build context: Builds the image from the Dockerfile located in the app directory.
-Ports: Exposes port 8000 on the container, mapped to the host's port defined by the WEB_PORT environment variable.
-Healthcheck: Regularly checks if the Django application is responding on port 8000.
-Resource Limits: CPU and memory limits ensure that the container doesn't overuse system resources.
-Security: Adds security options, such as no-new-privileges for additional protection.
-Volumes
-Log Directory: The local logs directory is mapped to /app/logs in the container.
-Database: The SQLite database file db.sqlite3 is persisted locally under data/db.sqlite3.
-Networks
-A custom Docker network django_network is defined to allow services to communicate.
+```
 
-Environment Variables
-You can define custom environment variables such as the WEB_PORT in a .env file. The default port is set to 8000.
+### Service Definition
+- **`web` service**: Defines the Django web application.
+- **Build context**: Builds the image from the `Dockerfile` located in the `app` directory.
+- **Ports**: Exposes port `8000` on the container, mapped to the host's port defined by the `WEB_PORT` environment variable.
+- **Healthcheck**: Regularly checks if the Django application is responding on port 8000.
+- **Resource Limits**: CPU and memory limits ensure that the container doesn't overuse system resources.
+- **Security**: Adds security options, such as `no-new-privileges` for additional protection.
 
-Healthcheck
-The healthcheck ensures that the service is running correctly by sending a request to http://localhost:8000. If the healthcheck fails after the configured retries, Docker marks the container as unhealthy.
+### Volumes
+- **Log Directory**: The local `logs` directory is mapped to `/app/logs` in the container.
+- **Database**: The SQLite database file `db.sqlite3` is persisted locally under `data/db.sqlite3`.
 
-Resource Limits
+### Networks
+A custom Docker network `django_network` is defined to allow services to communicate.
+
+## Environment Variables
+
+You can define custom environment variables such as the `WEB_PORT` in a `.env` file. The default port is set to `8000`.
+
+## Healthcheck
+
+The `healthcheck` ensures that the service is running correctly by sending a request to `http://localhost:8000`. If the healthcheck fails after the configured retries, Docker marks the container as unhealthy.
+
+## Resource Limits
+
 To ensure stability, the container limits are set:
+- **CPUs**: Limited to 50% of the host's CPU.
+- **Memory**: Capped at 512MB of RAM.
 
-CPUs: Limited to 50% of the host's CPU.
-Memory: Capped at 512MB of RAM.
+---
+
+This setup ensures that the Django application runs efficiently inside a Docker container with resource constraints and security measures in place.
+``` 
+
+This `README.md` provides a detailed overview of your Django project using Docker and Docker Compose, covering key aspects such as technologies, setup, Dockerfile, and service configurations.
