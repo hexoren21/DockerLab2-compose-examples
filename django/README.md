@@ -132,10 +132,3 @@ The `healthcheck` ensures that the service is running correctly by sending a req
 To ensure stability, the container limits are set:
 - **CPUs**: Limited to 50% of the host's CPU.
 - **Memory**: Capped at 512MB of RAM.
-
----
-
-This setup ensures that the Django application runs efficiently inside a Docker container with resource constraints and security measures in place.
-``` 
-
-This `README.md` provides a detailed overview of your Django project using Docker and Docker Compose, covering key aspects such as technologies, setup, Dockerfile, and service configurations.
