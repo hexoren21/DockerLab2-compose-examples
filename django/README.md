@@ -1,4 +1,4 @@
-### Django Application with Docker Compose
+# Django Application with Docker Compose
 
 This project demonstrates how to set up a Django application using Docker and Docker Compose. The application runs inside a Docker container, simplifying deployment in any environment.
 
