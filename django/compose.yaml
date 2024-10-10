@@ -1,0 +1,30 @@
+services:
+  web:
+    build:
+      context: app
+      target: builder
+    container_name: php-app
+    ports:
+      - "${WEB_PORT}:8000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: "512M"
+    networks:
+      - django_network
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    volumes:
+      - ./logs:/app/logs
+      - ./data/db.sqlite3:/app/db.sqlite3
+
+networks:
+  django_network:
+    driver: bridge
